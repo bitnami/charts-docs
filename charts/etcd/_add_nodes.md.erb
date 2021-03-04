@@ -3,17 +3,17 @@
 apps: etcd
 platforms: kubernetes
 id: add_nodes
-title: Add a new node to the cluster
+title: Add a new node to the deployment
 category: administration
 weight: 30
 highlight: 30
 =end %>
 
-To add a new node to your etcd cluster, you need to upgrade your installation by providing the number of nodes you want to add to the *helm upgrade* command as follows:
+To add a new node to your etcd deployment, upgrade your installation by providing the number of nodes you want to add to the *helm upgrade* command as follows:
 
 ~~~
 $ helm upgrade my-release bitnami/etcd \
-  --set statefulset.replicaCount=NUMBER_OF_REPLICAS 
+  --set statefulset.replicaCount=NUMBER_OF_REPLICAS
 ~~~
 
-> NOTE: Remember to replace the NUMBER_OF_REPLICAS placeholder with the total number of nodes you want to add to the existing cluster.
+> NOTE: Remember to replace the NUMBER_OF_REPLICAS placeholder with the total number of nodes required in the cluster.

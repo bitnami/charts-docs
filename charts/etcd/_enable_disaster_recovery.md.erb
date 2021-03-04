@@ -1,0 +1,25 @@
+<%
+=begin
+apps: etcd
+platforms: kubernetes
+id: enable_disaster_recovery
+title: Enable disaster recovery features
+category: administration
+weight: 10
+highlight: 10
+=end %>
+
+The Bitnami etcd Helm chart supports automatic disaster recovery by periodically snapshotting the keyspace. If the cluster permanently loses more than (N-1)/2 members, it tries to recover the cluster from a previous snapshot.
+
+Enable this feature with the following parameters:
+
+~~~
+persistence.enabled=true
+disasterRecovery.enabled=true
+disasterRecovery.pvc.size=2Gi
+disasterRecovery.pvc.storageClassName=nfs
+~~~
+
+> NOTE: Disaster recovery feature requires volumes with ReadWriteMany access mode.
+
+Learn more about this feature in our [tutorial on backing up and restoring Bitnami etcd chart deployments on Kubernetes](https://docs.bitnami.com/tutorials/backup-restore-data-etcd-kubernetes/).

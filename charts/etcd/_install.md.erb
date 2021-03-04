@@ -1,0 +1,18 @@
+<%
+=begin
+apps: etcd
+platforms: kubernetes
+id: install
+title: Install the chart
+category: get-started
+weight: 10
+highlight: 10
+=end %>
+
+<%= partial 'platforms/kubernetes/add_repo_intro.md.erb' %>
+
+* Deploy the etcd chart with the following command:
+
+    > NOTE: Remember that MY-RELEASE is a placeholder, replace it with the name you want to give to the deployment or add the *--generate-name* parameter to automatically generate a name.
+
+        $ helm install MY-RELEASE bitnami/etcd
