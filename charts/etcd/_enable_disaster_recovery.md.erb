@@ -20,6 +20,8 @@ disasterRecovery.pvc.size=2Gi
 disasterRecovery.pvc.storageClassName=nfs
 ~~~
 
+If the *startFromSnapshot.\** parameters are used at the same time as the *disasterRecovery.\** parameters, the PVC provided via the *startFromSnapshot.existingClaim* parameter will be used to store the periodical snapshots.
+
 > NOTE: Disaster recovery feature requires volumes with ReadWriteMany access mode.
 
 Learn more about this feature in our [tutorial on backing up and restoring Bitnami etcd chart deployments on Kubernetes](https://docs.bitnami.com/tutorials/backup-restore-data-etcd-kubernetes/).

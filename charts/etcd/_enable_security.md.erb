@@ -3,7 +3,7 @@
 apps: etcd
 platforms: kubernetes
 id: enable_security
-title: Enable additional security features
+title: Enable TLS and other security features
 category: administration
 weight: 10
 highlight: 10
@@ -22,7 +22,7 @@ auth.rbac.rootPassword=YOUR-PASSWORD
 
 These parameters create a *root* user with an associate *root* role with access to everything. The remaining users will use the *guest* role and won't have permissions to do anything.
 
-### Configure certificated for peer communication
+### Configure TLS for peer communication
 
 In order to enable secure transport between peer nodes, deploy the chart with these options:
 
@@ -33,7 +33,7 @@ auth.peer.useAutoTLS=true
 
 ### Configure certificates for client communication
 
-In order to enable secure transport between client and server, create a secret containing the certificate and key files and the CA used to sign the client certificates. In this case, create the secret and then deploy the Helm chart with these options:
+In order to enable secure transport between client and server, create a secret containing the certificate and key files and the CA used to sign the client certificates. In this case, create the secret and then deploy the chart with these options:
 
 ~~~
 auth.client.secureTransport=true
