@@ -13,19 +13,19 @@ In order to use custom configuration parameters, two options are available:
 
 * Environment variables: The Helm chart accepts environment variables that map to configuration settings. In order to set extra environment variables, use the *envVarsConfigMap* value to point to a Kubernetes ConfigMap (shown in the below example) that contains them.
 
-This ConfigMap can be created as shown below. The chart can then be deployed with the *envVarsConfigMap=CONFIGMAP-NAME* parameter, where CONFIGMAP-NAME refers to the name of the created ConfigMap (in this example, *etcd-env-vars*)
+    This ConfigMap can be created as shown below. The chart can then be deployed with the *envVarsConfigMap=CONFIGMAP-NAME* parameter, where CONFIGMAP-NAME refers to the name of the created ConfigMap (in this example, *etcd-env-vars*)
 
-```console
-$ cat << EOF > /tmp/configurationEnvVars.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: etcd-env-vars
-  namespace: default
-data:
-  ETCD_AUTO_COMPACTION_RETENTION: "0"
-  ETCD_HEARTBEAT_INTERVAL: "150"
-EOF
-```
+    ```console
+    $ cat << EOF > /tmp/configurationEnvVars.yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: etcd-env-vars
+      namespace: default
+    data:
+      ETCD_AUTO_COMPACTION_RETENTION: "0"
+      ETCD_HEARTBEAT_INTERVAL: "150"
+    EOF
+    ```
 
 * Custom *etcd.conf.yml*: The chart supports mounting a custom *etcd.conf.yml* file as a ConfigMap and deploying it using the *configFileConfigMap=CONFIGMAP-NAME* parameter, where CONFIGMAP-NAME refers to the name of the created ConfigMap.
