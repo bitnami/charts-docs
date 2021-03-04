@@ -3,26 +3,28 @@
 apps: etcd
 platforms: kubernetes
 id: enable_security
-title: Enable security for etcd
+title: Enable additional security features
 category: administration
 weight: 10
 highlight: 10
 =end %>
 
+The following sections describe the options available for improving the security of your etcd deployment.
+
 ### Configure RBAC
 
-In order to enable Role-based access control for etcd you can set the following parameters:
+In order to enable Role-Based Access Control for etcd, set the following parameters:
 
 ~~~
 auth.rbac.enabled=true
 auth.rbac.rootPassword=YOUR-PASSWORD
 ~~~
 
-The previous command will deploy etcd creating a root user with its associate root role with access to everything. The rest of users will use the guest role and won't have permissions to do anything.
+These parameters create a *root* user with an associate *root* role with access to everything. The remaining users will use the *guest* role and won't have permissions to do anything.
 
 ### Configure certificated for peer communication
 
-In order to enable secure transport between peer nodes deploy the helm chart with these options:
+In order to enable secure transport between peer nodes, deploy the chart with these options:
 
 ~~~
 auth.peer.secureTransport=true
@@ -31,9 +33,7 @@ auth.peer.useAutoTLS=true
 
 ### Configure certificates for client communication
 
-In order to enable secure transport between client and server you have to create a secret containing the cert and key files and the CA used to sign those client certificates.
-
-You can create that secret and deploy the helm chart with these options:
+In order to enable secure transport between client and server, create a secret containing the certificate and key files and the CA used to sign the client certificates. In this case, create the secret and then deploy the Helm chart with these options:
 
 ~~~
 auth.client.secureTransport=true
@@ -41,18 +41,4 @@ auth.client.enableAuthentication=true
 auth.client.existingSecret=etcd-client-certs
 ~~~
 
-> Ref: [etcd security model](https://etcd.io/)
-> Ref: [Generate self-signed certificagtes for etcd](https://coreos.com/os/docs/latest/generate-self-signed-certificates.html)
-
-### Disaster recovery
-
-You can enable auto disaster recovery by periodically snapshotting the keyspace. If the cluster permanently loses more than (N-1)/2 members, it tries to recover the cluster from a previous snapshot. You can enable it using the following parameters:
-
-~~~
-persistence.enable=true
-disasterRecovery.enabled=true
-disasterRecovery.pvc.size=2Gi
-disasterRecovery.pvc.storageClassName=nfs
-~~~
-
-> NOTE: Disaster recovery feature requires using volumes with ReadWriteMany access mode. For instance, you can use the stable/nfs-server-provisioner chart to provide NFS PVCs.
+Learn more about the [etcd security model](https://etcd.io/) and how to [generate self-signed certificates for etcd](https://coreos.com/os/docs/latest/generate-self-signed-certificates.html).

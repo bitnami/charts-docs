@@ -9,20 +9,20 @@ weight: 20
 highlight: 20
 =end %>
 
-The chart optionally can start a metrics exporter for [Prometheus](https://prometheus.io/). The metrics endpoint (port 2379) is exposed in the service.  Metrics can be scraped from within the cluster using something similar as the described in the example [Prometheus scrape configuration](https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml). If metrics are to be scraped from outside the cluster, the Kubernetes API proxy can be utilized to access the endpoint.
+The chart optionally can start a metrics exporter for [Prometheus](https://prometheus.io/). The metrics endpoint (port 2379) is exposed in the service.
 
-To start a side-car Prometheus exporter, use the *values-production.yaml* file to deploy the chart by enabling the following parameters:
+Metrics can be scraped from within the cluster using something similar to the example [Prometheus scrape configuration](https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml). If metrics are to be scraped from outside the cluster, the Kubernetes API proxy can be utilized to access the endpoint.
 
-* Enable Prometheus exporter to expose etcd metrics: 
+To start a side-car Prometheus exporter, use the following parameters:
+
+* Enable Prometheus exporter to expose etcd metrics:
 
 ~~~
-- metrics.enabled: false
-+ metrics.enabled: true
+metrics.enabled: true
 ~~~
 
 * Enable a Prometheus Operator *ServiceMonitor* (it is required to have the metrics enabled):
 
 ~~~
-- metrics.serviceMonitor.enabled: false
-+ metrics.serviceMonitor.enabled: true
+metrics.serviceMonitor.enabled: true
 ~~~

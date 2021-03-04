@@ -1,0 +1,24 @@
+<%
+=begin
+apps: etcd
+platforms: kubernetes
+id: understand_chart_persistence
+title: Understand chart persistence
+category: configuration
+weight: 40
+highlight: 40
+=end %>
+
+The [Bitnami etcd image](https://github.com/bitnami/bitnami-docker-etcd) stores the etcd data at the */bitnami/etcd* path of the container.
+
+PersistentVolumeClaims (PVCs) are used to keep the data across StatefulSets. By default, the chart mounts a [PersistentVolume](https://github.com/bitnami/charts/tree/master/bitnami/etcd#parameters) at this location. The volume is created using dynamic volume provisioning. See the [Parameters section](https://github.com/bitnami/charts/tree/master/bitnami/etcd#parameters) to configure the PVC.
+
+In some cases, the following error may be seen during deployment:
+
+    Error executing 'postInstallation': EPERM: operation not permitted...
+
+Typically, this occurs because the image runs as a non-root user and in some Kubernetes clusters, non-root users do not have write privileges. In such cases, it is necessary to adjust the ownership of the persistent volume so that the container can write data into it. There are two approaches to achieve this:
+
+* Use Kubernetes SecurityContexts by setting the *securityContext.enabled* parameter to *true*. This option is enabled by default in the chart. However, this feature does not work in all Kubernetes distributions.
+
+* Use an init container to change the ownership of the volume before mounting it in the final destination. Enable this container by setting the *volumePermissions.enabled* parameter to *true*.
